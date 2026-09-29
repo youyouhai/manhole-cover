@@ -1,0 +1,5 @@
+.pio/
+.tools/
+.vscode/
+include/secrets.h
+include/device_token.h

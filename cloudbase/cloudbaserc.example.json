@@ -1,0 +1,16 @@
+{
+  "$schema": "https://static.cloudbase.net/cli/cloudbaserc.schema.json",
+  "envId": "replace-with-your-cloudbase-env-id",
+  "functionRoot": "./functions",
+  "functions": [
+    {
+      "name": "device-ingest",
+      "dir": "./functions/device-ingest",
+      "type": "HTTP",
+      "runtime": "Nodejs20.19",
+      "timeout": 10,
+      "memorySize": 256,
+      "installDependency": true
+    }
+  ]
+}

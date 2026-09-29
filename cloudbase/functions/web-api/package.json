@@ -1,0 +1,11 @@
+{
+  "name": "smart-manhole-web-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node index.mjs",
+    "test": "node --test"
+  },
+  "engines": { "node": ">=20" }
+}

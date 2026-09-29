@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.cloudbase.net/cli/cloudbaserc.schema.json",
+  "version": "2.0",
+  "envId": "smart-manhole-demo-d4cxwdfdf3c12",
+  "functionRoot": "cloudbase/functions",
+  "functions": [
+    {
+      "name": "photo-api",
+      "runtime": "Nodejs20.19",
+      "timeout": 30,
+      "memorySize": 512,
+      "description": "ESP32-S3-CAM photo collection API",
+      "envVariables": {
+        "CLOUDBASE_ENV_ID": "smart-manhole-demo-d4cxwdfdf3c12",
+        "PHOTO_STORAGE_PREFIX": "photo-collection",
+        "PHOTO_MAX_BYTES": "1048576",
+        "PHOTO_URL_TTL_SECONDS": "900"
+      }
+    }
+  ]
+}

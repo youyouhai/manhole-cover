@@ -1,0 +1,28 @@
+{
+  "$schema": "https://static.cloudbase.net/cli/cloudbaserc.schema.json",
+  "envId": "smart-manhole-demo-d4cxwdfdf3c12",
+  "functionRoot": "./functions",
+  "functions": [
+    {
+      "name": "device-ingest",
+      "dir": "./functions/device-ingest",
+      "type": "HTTP",
+      "runtime": "Nodejs20.19",
+      "timeout": 10,
+      "memorySize": 256,
+      "installDependency": true
+    },
+    {
+      "name": "web-api",
+      "dir": "./functions/web-api",
+      "type": "HTTP",
+      "runtime": "Nodejs20.19",
+      "timeout": 10,
+      "memorySize": 256,
+      "installDependency": false,
+      "envVariables": {
+        "INVITE_CODE_SHA256": "a108ec8c1e30131f7a030851d71654409eab7f980baf0fb8f55413f40f3cf542"
+      }
+    }
+  ]
+}
