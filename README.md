@@ -17,6 +17,12 @@
 
 > 一块板负责“感知与报警”，另一块板负责“拍照取证”。传感数据经 4G 上传，照片经可联网的 2.4 GHz Wi-Fi 上传，最终在同一个网页查看。
 
+### 实物原型
+
+<p align="center"><img src="docs/images/assembled-prototype.jpg" alt="智能井盖监测系统整体实物照片" width="780"></p>
+
+<p align="center"><sub>原型整体展示：照片中的器件摆放用于功能演示，正式安装还需考虑固定与防护。</sub></p>
+
 ## ✨ 一分钟了解项目
 
 井盖松动、移位和积水往往不容易及时发现。本项目把现场监测、声光提示、远程上报和照片采集合成一条可演示的链路：
@@ -86,6 +92,29 @@ npm run dev
 ```
 
 网页项目要求 Node.js 22.13 或更新版本。仅启动前端不等于设备已联网；真实数据与照片还需要云函数、设备令牌、热点和硬件链路正常工作。
+
+## 🔗 常用网页、API 与相机 IP
+
+| 用途 | 地址 | 说明 |
+|---|---|---|
+| 🌐 智能井盖网页 | [打开演示网站](https://smart-manhole-demo-d4cxwdfdf3c12-1474163882.tcloudbaseapp.com/) | 部署网页入口；部分功能需要登录，地址以实际部署为准。 |
+| 📡 传感数据上报 | `https://smart-manhole-demo-d4cxwdfdf3c12.service.tcloudbase.com/api/v1/device/telemetry` | 供设备发起 POST 请求，不是供浏览器直接查看的页面。 |
+| 📷 照片 API | `https://smart-manhole-demo-d4cxwdfdf3c12.service.tcloudbase.com/photo-api` | 相机和网页调用的接口入口；访问需要相应身份凭证。 |
+| 📱 相机连接热点后的本地网页 | `http://<相机当前热点IP>/` | 电脑或手机需与相机处于可互访的同一局域网。 |
+| 🛟 相机备用 AP 页面 | `http://192.168.4.1/` | 仅在连接相机的 `ESP32-S3-CAM-SETUP` Wi-Fi 后使用；该 AP 本身不提供云端网络。 |
+
+`http://10.63.211.122/` 是此前一次热点分配的**历史示例**，不是永久地址。换手机热点、切换网络或重新分配 DHCP 后，先看相机 115200 波特率串口日志中的 `[wifi] open http://x.x.x.x/`；新版固件每约 15 秒会重复打印。也可从相机本地 `/status` 接口查看 `hotspotIp`。烧录与监视所用 COM 口同样应按当前电脑识别结果确认。
+
+### 密钥与配置放在哪里？
+
+| 配置项 | 正确位置 |
+|---|---|
+| 热点名称与密码 | 从 [`camera/include/secrets.example.h`](camera/include/secrets.example.h) 复制为本地 `camera/include/secrets.h` 后填写。 |
+| 相机设备令牌 | 按 [`camera/README.md`](camera/README.md) 运行 `provision_token.py`，写入被 Git 忽略的本地配置。 |
+| 网页环境 ID、地图浏览器 Key、照片 API 地址 | 参考 [`web/.env.example`](web/.env.example)，配置在本地 `web/.env.local`；浏览器 Key 应在提供方控制台限制可用域名。 |
+| CloudBase 服务端 API Key、设备令牌映射 | 配置在云函数环境变量中；名称及用途见 [`photo-api/README.md`](cloudbase/functions/photo-api/README.md)。 |
+
+**README 只写配置方式，不公开真实密钥、设备令牌或热点密码。**这些值一旦提交到 Git 历史，后续删除 README 也不能保证已泄露的凭证失效；如曾意外提交，应立即在对应平台轮换。
 
 ## 📚 交付材料
 
